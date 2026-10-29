@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102c46"><title>CMX Driver｜iPhone 下載</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:#162c3c;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1020px;margin:auto;padding:32px 22px 64px}.brand{font-size:14px;font-weight:800;letter-spacing:.13em;color:#326483}.hero{background:#102c46;color:white;border-radius:24px;padding:clamp(28px,6vw,64px);margin-top:22px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.badge{display:inline-block;background:#284b60;color:#bce8dd;border-radius:30px;padding:4px 12px;font-size:13px;font-weight:700}h1{font-size:clamp(34px,6vw,56px);line-height:1.12;letter-spacing:-.04em;margin:20px 0}h2{line-height:1.25}p{margin:0 0 16px}.hero p{color:#d4e3eb}.buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}.button{border:0;border-radius:12px;padding:13px 19px;text-decoration:none;font-weight:700;display:inline-block;background:#8ee3c1;color:#102c46}.button.secondary{background:white;color:#102c46}.button.disabled{background:#526979;color:#e1e8eb;cursor:not-allowed}.note{font-size:14px;margin-top:14px;color:#c8d9e2}.hero-card{align-self:center;background:#1d4057;border:1px solid #416076;border-radius:18px;padding:26px}.hero-card strong{font-size:19px}.hero-card p{font-size:14px;margin:10px 0 0}.section{margin-top:48px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:white;border:1px solid #e0e9ef;border-radius:18px;padding:24px}.num{color:#277c68;font-size:13px;font-weight:800}.card h3{margin:8px 0}.card p{color:#546d7d;font-size:15px;margin:0}.help{background:#e6f3ef;border-radius:18px;padding:24px}a{color:#165c7b}footer{margin-top:44px;color:#647985;font-size:13px}@media(max-width:700px){.hero,.steps{grid-template-columns:1fr}.hero-card{padding:20px}main{padding:24px 16px 48px}}
+  </style>
+</head>
+<body><main>
+  <div class="brand">CALLNMOVEX · CMX DRIVER</div>
+  <section class="hero"><div><span class="badge">iPhone 測試版</span><h1>司機版，<br>隨時準備出發。</h1><p>透過 Apple TestFlight 安裝 CMX Driver。跟住以下步驟，就可以開始使用司機版。</p><div class="buttons"><a class="button secondary" href="https://apps.apple.com/app/testflight/id899247664">1. 下載 TestFlight</a><a id="invite" class="button disabled" aria-disabled="true">2. 下載司機版</a></div><div id="status" class="note" role="status">司機版邀請連結尚未提供，請聯絡 CallNMoveX 查詢。</div></div><div class="hero-card"><strong>已經安裝？</strong><p>打開 TestFlight，選擇 CMX Driver，查看有沒有可用更新。建議在 App 的 TestFlight 設定中開啟自動更新。</p><p id="version"></p></div></section>
+  <section class="section"><h2>首次安裝</h2><div class="steps"><article class="card"><span class="num">01</span><h3>安裝 TestFlight</h3><p>用 iPhone 開啟上方連結，到 App Store 安裝 Apple TestFlight。</p></article><article class="card"><span class="num">02</span><h3>接受測試邀請</h3><p>回到此頁，按「下載司機版」，並依照畫面接受邀請。</p></article><article class="card"><span class="num">03</span><h3>安裝並登入</h3><p>在 TestFlight 按安裝，完成後開啟 CMX Driver 並登入。</p></article></div></section>
+  <section class="section help"><h2>保持版本最新</h2><p>在 TestFlight 的 CMX Driver 頁面開啟自動更新。新版本推出時，亦可以打開 TestFlight 手動更新；司機版可能會提示你更新。</p><p>測試版本有使用期限。如遇到連結失效、無法安裝或版本過期，請聯絡 CallNMoveX 支援。</p><a href="mailto:admin@callnmovex.uk">聯絡支援</a></section>
+  <footer>© CallNMoveX · iOS 測試版由 Apple TestFlight 提供</footer>
+</main><script>
+(async () => {
+  try {
+    const response = await fetch('https://api2.callnmovex.uk/system/config', {cache: 'no-store'});
+    if (!response.ok) return;
+    const config = await response.json();
+    const url = new URL(config.ios_driver_testflight_url || '');
+    if (url.protocol !== 'https:' || url.hostname !== 'testflight.apple.com') return;
+    const link = document.getElementById('invite');
+    link.href = url.href; link.classList.remove('disabled'); link.removeAttribute('aria-disabled');
+    document.getElementById('status').textContent = '需要 iPhone 及 Apple 帳戶；請先安裝 TestFlight。';
+    if (config.ios_driver_latest_version) document.getElementById('version').textContent = '最新版本：' + config.ios_driver_latest_version + (config.ios_driver_latest_build ? ' (' + config.ios_driver_latest_build + ')' : '');
+  } catch (_) { /* Show the support message when settings are unavailable. */ }
+})();
+</script></body></html>
